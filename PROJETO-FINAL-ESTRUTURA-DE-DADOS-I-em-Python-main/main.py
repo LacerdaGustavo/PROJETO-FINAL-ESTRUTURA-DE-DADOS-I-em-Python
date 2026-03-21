@@ -60,8 +60,18 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
             lista_compras[id_cliente].append(id_produto)
 
 
-print(f"Total de Clientes: {len(vetor_clientes)}")
-print(f"Total de Produtos Únicos: {len(vetor_produtos)}")
+print("TESTADOR DA ATIVIDADE 1")
+clientes_teste = ["05090301", "05190001", "99DL9N01"]
+for codigo_original in clientes_teste:
+    if codigo_original in mapa_clientes:
+        indice_cliente = mapa_clientes[codigo_original]
+        produtos_comprados = lista_compras[indice_cliente]
+        print (f"Cliente {codigo_original} comprou {len(produtos_comprados)} produtos")
+        for id_produto in produtos_comprados:
+            codigo_produto = vetor_produtos[id_produto]
+            print (f" Produto código: {codigo_produto}")
+    else: 
+        print (f"Cliente {codigo_original} não encontrado")
 
 
 
