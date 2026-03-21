@@ -82,3 +82,6 @@ for codigo_original in clientes_teste:
 
 matriz_compras_A = construir_matriz_compras(lista_compras, len(vetor_clientes), len(vetor_produtos))
 matriz_compras_T = construir_transposta(matriz_compras_A, len(vetor_clientes), len(vetor_produtos))
+matriz_intersecao_I = multiplicar_matrizes(matriz_compras_A, matriz_compras_T, len(vetor_clientes), len(vetor_produtos)) 
+matriz_similaridade_S = calcular_matriz_similaridade(matriz_intersecao_I, lista_compras, len(vetor_clientes))
+
