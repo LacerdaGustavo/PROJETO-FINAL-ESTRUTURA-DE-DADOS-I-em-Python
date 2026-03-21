@@ -60,7 +60,6 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
             lista_compras[id_cliente].append(id_produto)
 
 
-# 👉 CORREÇÃO APLICADA AQUI: Este bloco inteiro foi puxado para a margem esquerda para sair do loop acima
 # testador da atividade 1 que vai imprimir os clientes e os produtos que compraram, usando os codigos originais
 print("\nTESTADOR DA ATIVIDADE 1")
 clientes_teste = ["99D7GX01", "53402701", "08912501"]
@@ -86,7 +85,7 @@ matriz_similaridade_S = calcular_matriz_similaridade(matriz_intersecao_I, lista_
 
 
 # testador da atividade 2 que vai imprimir a similaridade entre os clientes, usando os codigos originais
-print ("\nTESTADO DA ATIVIDADE 2")
+print ("\nTESTADOR DA ATIVIDADE 2")
 clientes_teste = ["99D7GX01", "53402701", "08912501"]
 
 for codigo_original in clientes_teste:
@@ -104,3 +103,7 @@ for codigo_original in clientes_teste:
         # depois que o 'for' acabar de avaliar todo mundo, imprime SÓ o vencedor
         if cliente_mais_similar != -1:
             codigo_outro_cliente = vetor_clientes[cliente_mais_similar]
+            print(f"O cliente mais similar ao {codigo_original} é o {codigo_outro_cliente} (Distância: {menor_distancia:.4f})")
+        
+    else:
+        print (f"Cliente {codigo_original} não encontrado")
