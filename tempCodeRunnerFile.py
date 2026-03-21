@@ -1,1 +1,0 @@
-   # (Usando o set() aqui temporariamente só para não ter produto duplicado na lista)

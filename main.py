@@ -1,5 +1,7 @@
 import csv
 
+from similaridade import construir_matriz_compras
+
 
 # ATIVIDADE 1: MÓDULO LISTA DE COMPRAS
 
@@ -60,3 +62,11 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
 
 print(f"Total de Clientes: {len(vetor_clientes)}")
 print(f"Total de Produtos Únicos: {len(vetor_produtos)}")
+
+
+
+
+
+# ATIVIDADE 2: MÓDULO SIMILARIDADE
+
+matriz_compras_A = construir_matriz_compras(lista_compras, len(vetor_clientes), len(vetor_produtos))
