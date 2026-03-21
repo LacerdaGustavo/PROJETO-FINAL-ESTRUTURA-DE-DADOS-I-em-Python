@@ -59,7 +59,7 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
         if id_produto not in lista_compras[id_cliente]:  #Se o produto ainda não estiver na lista de compras do cliente, adicionamos
             lista_compras[id_cliente].append(id_produto)
 
-
+# testador da atividade 1 que vai imprimir os clientes e os produtos que compraram, usando os codigos originais
 print("TESTADOR DA ATIVIDADE 1")
 clientes_teste = ["05090301", "05190001", "99DL9N01"]
 for codigo_original in clientes_teste:
@@ -85,3 +85,27 @@ matriz_compras_T = construir_transposta(matriz_compras_A, len(vetor_clientes), l
 matriz_intersecao_I = multiplicar_matrizes(matriz_compras_A, matriz_compras_T, len(vetor_clientes), len(vetor_produtos)) 
 matriz_similaridade_S = calcular_matriz_similaridade(matriz_intersecao_I, lista_compras, len(vetor_clientes))
 
+
+# testador da atividade 2 que vai imprimir a similaridade entre os clientes, usando os codigos originais
+print ("TESTADO DA ATIVIDADE 2")
+clientes_teste = ["05090301", "05190001", "99DL9N01"]
+
+for codigo_original in clientes_teste:
+    if codigo_original in mapa_clientes:
+        indice_cliente = mapa_clientes[codigo_original]
+
+        menor_distancia = 2.0
+        cliente_mais_similar = -1
+        
+        for j in range(len(vetor_clientes)):
+            if j != indice_cliente and matriz_similaridade_S[indice_cliente][j] < menor_distancia: # Não comparamos o cliente com ele mesmo
+                menor_distancia = matriz_similaridade_S[indice_cliente][j] # Atualiza o novo recorde
+                cliente_mais_similar = j # Salva quem bateu o recorde
+        
+        # depois que o 'for' acabar de avaliar todo mundo, imprime SÓ o vencedor
+        if cliente_mais_similar != -1:
+            codigo_outro_cliente = vetor_clientes[cliente_mais_similar]
+            print(f"O cliente mais similar ao {codigo_original} é o {codigo_outro_cliente} (Distância: {menor_distancia:.4f})")
+        
+    else: 
+        print (f"Cliente {codigo_original} não encontrado")
