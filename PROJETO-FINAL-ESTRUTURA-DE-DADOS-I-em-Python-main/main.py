@@ -1,8 +1,6 @@
 import csv
 
-from similaridade import construir_matriz_compras, construir_transposta
-
-
+from similaridade import construir_matriz_compras, construir_transposta, multiplicar_matrizes, calcular_matriz_similaridade
 
 
 # ATIVIDADE 1: MÓDULO LISTA DE COMPRAS
