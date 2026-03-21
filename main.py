@@ -1,6 +1,8 @@
 import csv
 
-from similaridade import construir_matriz_compras
+from similaridade import construir_matriz_compras, construir_transposta
+
+
 
 
 # ATIVIDADE 1: MÓDULO LISTA DE COMPRAS
@@ -41,7 +43,7 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
             vetor_produtos.append(produto)
 
 
-# --- SEGUNDA PASSAGEM
+# SEGUNDA PASSAGEM
 with open("dados_venda_cluster_20.csv", "r") as arquivo:
     leitor = csv.reader(arquivo)
     next(leitor)
@@ -67,6 +69,8 @@ print(f"Total de Produtos Únicos: {len(vetor_produtos)}")
 
 
 
+
 # ATIVIDADE 2: MÓDULO SIMILARIDADE
 
 matriz_compras_A = construir_matriz_compras(lista_compras, len(vetor_clientes), len(vetor_produtos))
+matriz_compras_T = construir_transposta(matriz_compras_A, len(vetor_clientes), len(vetor_produtos))
