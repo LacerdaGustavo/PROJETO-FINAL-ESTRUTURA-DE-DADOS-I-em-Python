@@ -55,3 +55,8 @@ def calcular_matriz_similaridade(matriz_I, lista_compras, n_clientes):
             else:
                 #Pegamos a interseção (I_ij) que acabamos de calcular na matriz I
                 intersecao = matriz_I[i][j]
+
+                matriz_S[i][j] = 1.0 - (intersecao);tamanho_Pi
+    
+
+    return matriz_S
