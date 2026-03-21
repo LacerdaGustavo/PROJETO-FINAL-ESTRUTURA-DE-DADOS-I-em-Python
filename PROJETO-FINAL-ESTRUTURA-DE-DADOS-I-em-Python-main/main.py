@@ -62,7 +62,7 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
 
 # testador da atividade 1 que vai imprimir os clientes e os produtos que compraram, usando os codigos originais
 print("\nTESTADOR DA ATIVIDADE 1")
-clientes_teste = ["99D7GX01", "53402701", "08912501"]
+clientes_teste = ["99D7GX01", "09404701", "73422901"]
 for codigo_original in clientes_teste:
     if codigo_original in mapa_clientes:
         indice_cliente = mapa_clientes[codigo_original]
@@ -86,7 +86,7 @@ matriz_similaridade_S = calcular_matriz_similaridade(matriz_intersecao_I, lista_
 
 # testador da atividade 2 que vai imprimir a similaridade entre os clientes, usando os codigos originais
 print ("\nTESTADOR DA ATIVIDADE 2")
-clientes_teste = ["99D7GX01", "53402701", "08912501"]
+clientes_teste = ["99D7GX01", "09404701", "73422901"]
 
 for codigo_original in clientes_teste:
     if codigo_original in mapa_clientes:
