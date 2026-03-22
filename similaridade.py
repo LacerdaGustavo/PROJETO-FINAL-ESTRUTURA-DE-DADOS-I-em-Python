@@ -26,11 +26,12 @@ def multiplicar_matrizes(matriz_A, matriz_T, n_clientes, m_produtos):
     matriz_I = [[0]* n_clientes for _ in range(n_clientes)]
 
     for i in range(n_clientes):
+        produtos_comprados = [k for k in range(m_produtos) if matriz_A[i][k] == 1]  # Pegamos os produtos comprados pelo cliente i / aqui eu otimizei para ler apenas apenas as contas que tiverem 1 marcados, para não precisar fazer milhoes de contas inúteis 
+       
         for j in range(n_clientes):
-
             soma = 0
-            for k in range(m_produtos):
-                soma += matriz_A[i][k] * matriz_T[k][j]
+            for k in produtos_comprados:
+                soma += matriz_T[k][j]
 
             matriz_I[i][j] = soma   
 
@@ -56,7 +57,7 @@ def calcular_matriz_similaridade(matriz_I, lista_compras, n_clientes):
                 #Pegamos a interseção (I_ij) que acabamos de calcular na matriz I
                 intersecao = matriz_I[i][j]
 
-                matriz_S[i][j] = 1.0 - (intersecao);tamanho_Pi
+                matriz_S[i][j] = 1.0 - (intersecao)/tamanho_Pi
     
 
     return matriz_S
