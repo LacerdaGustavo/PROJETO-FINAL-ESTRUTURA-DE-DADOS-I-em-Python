@@ -1,6 +1,7 @@
 import csv
 
 from similaridade import construir_matriz_compras, construir_transposta, multiplicar_matrizes, calcular_matriz_similaridade
+from recomendacao import gerar_recomendacoes
 
 
 # ATIVIDADE 1: MÓDULO LISTA DE COMPRAS
@@ -15,6 +16,8 @@ mapa_produtos = {}        # Código do produto -> Índice interno
 
 lista_compras = []        # Vetor onde cada posição (cliente) tem uma lista de produtos
 
+vetor_nomes_produtos = [] # Vetor onde cada posição (produto) tem o nome do produto, para facilitar a impressão das recomendações no final, sem precisar ficar buscando o nome do produto toda hora no mapa_produtos, que é uma tabela hash e tem acesso O(1), mas mesmo assim é mais eficiente ter um vetor só para isso, já que a gente vai precisar imprimir o nome do produto várias vezes no final, e ai a gente evita ficar fazendo várias buscas no mapa_produtos, que embora seja O(1), ainda tem um custo de tempo, e com o vetor_nomes_produtos a gente tem acesso direto ao nome do produto pela posição do índice interno, sem precisar fazer nenhuma busca adicional.
+
 
 # PRIMEIRA PASSAGEM
 with open("dados_venda_cluster_20.csv", "r") as arquivo:
@@ -24,6 +27,7 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
     for linha in leitor:
         cliente = linha[1].strip()
         produto = linha[2].strip()
+        produto_nome = linha[3].strip()
         
         # 1. Se o cliente ainda não está no mapa, adicionamos ele
         if cliente not in mapa_clientes:
@@ -39,6 +43,7 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
             indice_novo_produto = len(vetor_produtos)
             mapa_produtos[produto] = indice_novo_produto
             vetor_produtos.append(produto)
+            vetor_nomes_produtos.append(produto_nome)
 
 
 # SEGUNDA PASSAGEM
@@ -70,7 +75,8 @@ for codigo_original in clientes_teste:
         print (f"Cliente {codigo_original} comprou {len(produtos_comprados)} produtos")
         for id_produto in produtos_comprados:
             codigo_produto = vetor_produtos[id_produto]
-            print (f" Produto código: {codigo_produto}")
+            nome_produto = vetor_nomes_produtos[id_produto]
+            print (f" Código do produto: {codigo_produto} - Nome: {nome_produto}")
     else:
         print (f"Cliente {codigo_original} não encontrado")
 print("-" * 30)
@@ -107,3 +113,35 @@ for codigo_original in clientes_teste:
         
     else:
         print (f"Cliente {codigo_original} não encontrado")
+print("-" * 30)
+
+
+#testador da atividade 3 que vai imprimir as recomendações para os clientes
+print ("\nTESTADOR DA ATIVIDADE 3")
+clientes_teste = ["99D7GX01", "09404701", "73422901"]
+quantidade_k_recomendacoes = 5 #para n esquecer foi definido um valor padrao, bem no comecinho do recomendacao.py, mas aqui a gente pode escolher o valor que quiser
+
+for codigo_original in clientes_teste:
+    if codigo_original in mapa_clientes:
+        indice_cliente = mapa_clientes[codigo_original]
+
+        recomendacoes = gerar_recomendacoes(indice_cliente, matriz_similaridade_S, lista_compras, len(vetor_produtos), len(vetor_clientes), quantidade_k_recomendacoes)
+
+        print(f"5 recomendações para o cliente {codigo_original}:")
+
+        if len(recomendacoes) == 0:
+            print (" Nenhuma recomendação disponível")
+
+        else:  
+            for posicao, item in enumerate(recomendacoes):
+                id_produto_recomendado = int(item[0]) 
+                nome_produto_recomendado = vetor_nomes_produtos[id_produto_recomendado]
+                codigo_produto_recomendado = vetor_produtos[id_produto_recomendado]
+
+                codigo_produto_recomendado = vetor_produtos[id_produto_recomendado]
+                print(f" {posicao + 1} - Código do produto: {codigo_produto_recomendado} - Nome: {nome_produto_recomendado} )")
+        
+    else: 
+        print (f"Cliente {codigo_original} não encontrado")
+print("-" * 30)
+

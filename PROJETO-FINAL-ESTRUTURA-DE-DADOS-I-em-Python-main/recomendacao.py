@@ -21,10 +21,10 @@ def gerar_recomendacoes (cliente_alvo, matriz_similaridade_S, lista_compras, m_p
     produtos_para_ordenar = []
     for p in range(m_produtos):
         if vetor_R[p] < 1.0: #se o produto tiver sido comprado por algum vizinho, ele vai ter um valor menor que 1.0, e ai a gente adiciona ele na lista de produtos para ordenar
-            produtos_para_ordenar.append((p, vetor_R[p]))
+            produtos_para_ordenar.append([p, vetor_R[p]])
 
     def criterio_ordenacao(item):
-        return item[1] #ordena pelo valor do vetor_R e ele é o segundo na tupla q tem acima
+        return item #ordena pelo valor do vetor_R e ele é o segundo na tupla q tem acima
     
     produtos_para_ordenar.sort(key=criterio_ordenacao) #dos mais recomendados para os menos recomendados
 
