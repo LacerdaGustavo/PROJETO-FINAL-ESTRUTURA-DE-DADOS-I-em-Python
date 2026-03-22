@@ -18,16 +18,23 @@ lista_compras = []        # Vetor onde cada posição (cliente) tem uma lista de
 
 vetor_nomes_produtos = [] # Vetor onde cada posição (produto) tem o nome do produto, para facilitar a impressão das recomendações no final, sem precisar ficar buscando o nome do produto toda hora no mapa_produtos, que é uma tabela hash e tem acesso O(1), mas mesmo assim é mais eficiente ter um vetor só para isso, já que a gente vai precisar imprimir o nome do produto várias vezes no final, e ai a gente evita ficar fazendo várias buscas no mapa_produtos, que embora seja O(1), ainda tem um custo de tempo, e com o vetor_nomes_produtos a gente tem acesso direto ao nome do produto pela posição do índice interno, sem precisar fazer nenhuma busca adicional.
 
+arquivos_csv = [
+    "dados_venda_cluster_20.csv", 
+    "dados_venda_cluster_65.csv", 
+    "dados_venda_cluster_84.csv"
+]
+
 
 # PRIMEIRA PASSAGEM
-with open("dados_venda_cluster_20.csv", "r") as arquivo:
-    leitor = csv.reader(arquivo)
-    next(leitor)  # Pula o cabeçalho
-    
-    for linha in leitor:
-        cliente = linha[1].strip()
-        produto = linha[2].strip()
-        produto_nome = linha[3].strip()
+for nome_arquivo in arquivos_csv:
+    with open(nome_arquivo, "r") as arquivo:
+        leitor = csv.reader(arquivo)
+        next(leitor)  # Pula o cabeçalho
+
+        for linha in leitor:
+            cliente = linha[1].strip()
+            produto = linha[2].strip()
+            produto_nome = linha[3].strip()
         
         # 1. Se o cliente ainda não está no mapa, adicionamos ele
         if cliente not in mapa_clientes:
@@ -47,22 +54,23 @@ with open("dados_venda_cluster_20.csv", "r") as arquivo:
 
 
 # SEGUNDA PASSAGEM
-with open("dados_venda_cluster_20.csv", "r") as arquivo:
-    leitor = csv.reader(arquivo)
-    next(leitor)
-    
-    for linha in leitor:
-        cliente = linha[1].strip()
-        produto = linha[2].strip()
-        
-        # Pegamos os índices internos que criamos na primeira passagem
-        id_cliente = mapa_clientes[cliente]
-        id_produto = mapa_produtos[produto]
-        
-        # Adicionamos o id_produto na lista de compras do id_cliente
-        # (Usando o set() aqui temporariamente só para não ter produto duplicado na lista)
-        if id_produto not in lista_compras[id_cliente]:  #Se o produto ainda não estiver na lista de compras do cliente, adicionamos
-            lista_compras[id_cliente].append(id_produto)
+for nome_arquivo in arquivos_csv:
+    with open(nome_arquivo, "r") as arquivo:
+        leitor = csv.reader(arquivo)
+        next(leitor)
+
+        for linha in leitor:
+            cliente = linha[1].strip()
+            produto = linha[2].strip()
+            
+            # Pegamos os índices internos que criamos na primeira passagem
+            id_cliente = mapa_clientes[cliente]
+            id_produto = mapa_produtos[produto]
+            
+            # Adicionamos o id_produto na lista de compras do id_cliente
+            # (Usando o set() aqui temporariamente só para não ter produto duplicado na lista)
+            if id_produto not in lista_compras[id_cliente]:  #Se o produto ainda não estiver na lista de compras do cliente, adicionamos
+                lista_compras[id_cliente].append(id_produto)
 
 
 # testador da atividade 1 que vai imprimir os clientes e os produtos que compraram, usando os codigos originais
